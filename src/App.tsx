@@ -1,24 +1,30 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {Wallet} from "./wallet";
+import UploadFile from "./UploadFile";
+import MintNFT from "./MintNFT";
+import {WagmiProvider} from "wagmi";
+import {config} from "./config";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style={{ padding: '20px' }}>
+        <h1>NFT Collection Creator</h1>ß
+        <WagmiProvider config={config}>
+          <QueryClientProvider client={queryClient}>
+        <Wallet />
+        <hr />
+        <UploadFile />
+        <hr />
+        <MintNFT />
+            </QueryClientProvider>
+        </WagmiProvider>
+      </div>
     </div>
   );
 }
