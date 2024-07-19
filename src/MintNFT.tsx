@@ -6,6 +6,7 @@ const MintNFT = () => {
     const [tokenURI, setTokenURI] = useState<string>('');
     const [status, setStatus] = useState<string>('');
     const [contractAddress, setContractAddress] = useState<string>(''); // Replace with your deployed contract address
+    const [mintedTokenURI, setMintedTokenURI] = useState<string>('');
 
     const handleMint = async () => {
         if (recipient && tokenURI) {
@@ -13,6 +14,7 @@ const MintNFT = () => {
             try {
                 debugger;
                 await mintNFT(contractAddress, recipient, tokenURI);
+                setMintedTokenURI(tokenURI);
                 setStatus('NFT minted successfully!');
             } catch (error) {
                 setStatus('Error minting NFT.');
@@ -38,6 +40,13 @@ const MintNFT = () => {
             />
             <button onClick={handleMint}>Mint NFT</button>
             {status && <p>{status}</p>}
+            {mintedTokenURI && (
+                <div>
+                    <h2>Minted NFT</h2>
+                    <p>Token URI: <a href={mintedTokenURI} target="_blank" rel="noopener noreferrer">{mintedTokenURI}</a></p>
+                    <img src={mintedTokenURI} alt="Minted NFT" />
+                </div>
+            )}
         </div>
     );
 };
